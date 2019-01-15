@@ -13,10 +13,13 @@
   ];
   echo "
   <hr>
-  <pre>Nombre                       Apellido</pre>
-  <hr>
+  <pre>Nombre       Apellido</pre>
+  <hr><ol>
   ";   
-  echo $alumnos; 
+  foreach($alumnos as $alumno){
+    echo "<li><pre>".$alumno['nombre']."</pre></li>";
+  }; 
+  echo "</ol>"
   ?>
 </body>  
 </html>
