@@ -1,0 +1,11 @@
+.nomApe {  
+  margin-left: 2.5em;
+}
+.lista {
+  overflow: auto;
+}
+ol {
+  margin-top: 0;
+  float:left;
+  list-style: none; 
+}
