@@ -1,5 +1,6 @@
 .nomApe {  
   margin-left: 2.5em;
+  border-top: solid 1px red;
 }
 .lista {
   overflow: auto;
