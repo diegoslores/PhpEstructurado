@@ -1,0 +1,43 @@
+.cabecera {
+  border: solid 2px;
+  margin: 5px;
+  padding: 5px;
+  min-height: 100px;
+}
+form {
+  margin-bottom: 0;
+}
+.cuerpo {
+  border: solid 2px;
+  margin: 5px;
+  min-height: 300px;
+}
+.todo {
+  width: 255px;
+  overflow: auto;
+}
+h3 {
+  margin-left: 20px;
+}
+.nomApe {
+  margin-left: 2.5em;
+  border-bottom: solid 2px;
+  width: 175px;
+}
+ol {
+  margin-top: 0;
+  padding-right: 40px;
+  float: left;
+  list-style: none;
+}
+.login input{
+  margin: 1em;
+  padding: 5px;
+  width: 200px;
+}
+input {
+  margin: 1em;
+  padding: 5px;
+  width: 100px;
+  float: left;
+}

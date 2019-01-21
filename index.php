@@ -8,80 +8,118 @@
 <body>
   <header class="cabecera">
     <?php
-    if($_POST['nombre']=="user" and $_POST['contraseña']=="123"){
-        session_start();
-        if(!isset($_SESSION['alumnos'])){
-		      $_SESSION['alumnos'] = [
+    if(isset($_GET['salir'])){
+			if($_GET['salir']=="Salir"){
+				session_destroy();			}
+		}
+    if(session_status() == PHP_SESSION_ACTIVE and existeUsuarioAsociado()){
+  		    $alumnos = [
+            ['nombre'=> 'Carlos', 'apellido' => 'Martínez', 'notas' => []],
+            ['nombre'=> 'Marta', 'apellido' => 'Carrera', 'notas' => []],
+            ['nombre'=> 'Nacho', 'apellido' => 'Herrera', 'notas' => []],
+            ['nombre'=> 'Anxo', 'apellido' => 'Iglesias', 'notas' => []]
+          ];
+          imprimeBotonAlumnos();
+          imprimeBotonMatricula();
+          imprimeBotonExamen();
+          imprimeBotonNotas();
+          imprimeBotonsalir();
+      echo "
+      </header>
+      <main class='cuerpo'>
+      ";
+    }else{
+      if($_GET['nombre']==='user' and $_GET['contraseña']==='123'){
+				session_start();
+				$_SESSION['nombre'] = $_GET['nombre'];
+				$_SESSION['contraseña'] = $_GET['contraseña'];
+				echo "<p>Bienvenido ".$_SESSION['nombre']."! Tu id de sesión actual es: ".session_id()."</p>";
+        imprimeBotonAlumnos();
+        imprimeBotonMatricula();
+        imprimeBotonExamen();
+        imprimeBotonNotas();
+        imprimeBotonsalir();
+				return;
+			}
+			else if($_GET['nombre']!=NULL or $_GET['contraseña']!=NULL){
+	 			echo '<div style="color:red; border:solid 1px;">Datos incompletos</div>';
+			}
+			Login();
+    }
+    /*
+    if($_GET['nombre']=="user" and $_GET['contraseña']=="123"){
+      session_start();
+		    $alumnos = [
           ['nombre'=> 'Carlos', 'apellido' => 'Martínez', 'notas' => []],
           ['nombre'=> 'Marta', 'apellido' => 'Carrera', 'notas' => []],
           ['nombre'=> 'Nacho', 'apellido' => 'Herrera', 'notas' => []],
           ['nombre'=> 'Anxo', 'apellido' => 'Iglesias', 'notas' => []]
         ];
         imprimeBotonAlumnos();
-        //imprimeBotonMatricula();
-        //imprimeBotonExamen();
-        //imprimeBotonNotas();
-        //imprimeBotonsalir();
-        }
-  echo "
-  </header>
-  <main class='cuerpo'>
+        imprimeBotonMatricula();
+        imprimeBotonExamen();
+        imprimeBotonNotas();
+        imprimeBotonsalir();
+    echo "
+    </header>
+    <main class='cuerpo'>
     ";
-      if($_POST['alumnos']=="Alumnos"){
+    if(isset($_GET['alumnos'])){
+      if($_GET['alumnos']=="Alumnos"){
         imprimirAlumnos($alumnos);
       }
-  }else{
-      echo "
-        <form action='index.php' method='POST'>
-  			Introduce tu nombre:<input type='text' name='nombre'><br>
-  			Introduce contraseña:<input type='text' name='contraseña'><br>
-  			<input type='submit' value='Enviar'>
-  			</form>";
-        echo "
-        </header>
-        <main class='cuerpo'>
-        ";
     }
-    if(isset($_GET['salir'])){
-			if($_GET['salir']=="Salir"){
-				session_destroy();
-				//Despues de destruir la sesión se repinta la página con la funcion header()
-				header("Location: index.php");
-			}
-		}
+  }else{
+      login();
+      echo "
+      </header>
+      <main class='cuerpo'>
+      ";
+    }*/
     ?>
   </main>
 </body>
 </html>
 <?php
+function existeUsuarioAsociado(){
+	 		return $_SESSION['nombre']=='user' and $_SESSION['contraseña']=='123';
+	 	}
+function login(){
+  echo "
+  <form class='login' action='index.php' method='GET'>
+  <input type='text' name='nombre' placeholder='Introduce tu nombre'><br>
+  <input type='text' name='contraseña' placeholder='introduce tu contraseña'><br>
+  <input type='submit' value='Enviar'>
+  </form>";
+}
 //Botones de selección;
 function imprimeBotonAlumnos(){
   echo "
-    <form action='index.php' method='POST'>
+    <form action='index.php' method='GET'>
       <input type='submit' name='alumnos' value='Alumnos'>
     </form>";
 }
 function imprimeBotonMatricula(){
   echo "
-    <form action='index.php' method='POST'>
+    <form action='index.php' method='GET'>
       <input type='submit' name='matricula' value='Matricula'>
     </form>";
 }
 function imprimeBotonExamen(){
   echo "
-    <form action='index.php' method='POST'>
+    <form action='index.php' method='GET'>
       <input type='submit' name='examen' value='Examen'>
     </form>";
 }
 function imprimeBotonNotas(){
   echo "
-    <form action='index.php' method='POST'>
+    <form action='index.php' method='GET'>
       <input type='submit' name='notas' value='Notas'>
     </form>";
 }
 function imprimeBotonsalir(){
   echo "
-    <form action='index.php' method='POST'>
+    <form action='index.php' method='GET'>
       <input type='submit' name='salir' value='Salir'>
     </form>";
 }
