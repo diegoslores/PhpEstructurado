@@ -2,7 +2,8 @@
   border: solid 2px;
   margin: 5px;
   padding: 5px;
-  min-height: 100px;
+  min-height: 150px;
+  background-color: blue;
 }
 form {
   margin-bottom: 0;
@@ -36,8 +37,7 @@ ol {
   width: 200px;
 }
 input {
-  margin: 1em;
+  margin: 0.5em;
   padding: 5px;
   width: 100px;
-  float: left;
 }

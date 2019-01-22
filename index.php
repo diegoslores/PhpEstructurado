@@ -1,24 +1,23 @@
+<?php session_start(); ?>
 <html>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Alumnos y Profesores</title>
-  <link rel="stylesheet" type="text/css" href="newcss.css" />
+  <link rel="stylesheet" type="text/css" href="css.css" />
 </head>
 <body>
   <header class="cabecera">
-    <?php
+    <?php 
+    
     if(isset($_GET['salir'])){
 			if($_GET['salir']=="Salir"){
-				session_destroy();			}
+				session_destroy();
+      	echo '<script>location.href="index.php"</script>';
+        }
 		}
     if(session_status() == PHP_SESSION_ACTIVE and existeUsuarioAsociado()){
-  		    $alumnos = [
-            ['nombre'=> 'Carlos', 'apellido' => 'Martínez', 'notas' => []],
-            ['nombre'=> 'Marta', 'apellido' => 'Carrera', 'notas' => []],
-            ['nombre'=> 'Nacho', 'apellido' => 'Herrera', 'notas' => []],
-            ['nombre'=> 'Anxo', 'apellido' => 'Iglesias', 'notas' => []]
-          ];
+  		   
           imprimeBotonAlumnos();
           imprimeBotonMatricula();
           imprimeBotonExamen();
@@ -29,8 +28,7 @@
       <main class='cuerpo'>
       ";
     }else{
-      if($_GET['nombre']==='user' and $_GET['contraseña']==='123'){
-				session_start();
+      if($_GET['nombre']=='user' and $_GET['contraseña']=='123'){				
 				$_SESSION['nombre'] = $_GET['nombre'];
 				$_SESSION['contraseña'] = $_GET['contraseña'];
 				echo "<p>Bienvenido ".$_SESSION['nombre']."! Tu id de sesión actual es: ".session_id()."</p>";
@@ -46,36 +44,6 @@
 			}
 			Login();
     }
-    /*
-    if($_GET['nombre']=="user" and $_GET['contraseña']=="123"){
-      session_start();
-		    $alumnos = [
-          ['nombre'=> 'Carlos', 'apellido' => 'Martínez', 'notas' => []],
-          ['nombre'=> 'Marta', 'apellido' => 'Carrera', 'notas' => []],
-          ['nombre'=> 'Nacho', 'apellido' => 'Herrera', 'notas' => []],
-          ['nombre'=> 'Anxo', 'apellido' => 'Iglesias', 'notas' => []]
-        ];
-        imprimeBotonAlumnos();
-        imprimeBotonMatricula();
-        imprimeBotonExamen();
-        imprimeBotonNotas();
-        imprimeBotonsalir();
-    echo "
-    </header>
-    <main class='cuerpo'>
-    ";
-    if(isset($_GET['alumnos'])){
-      if($_GET['alumnos']=="Alumnos"){
-        imprimirAlumnos($alumnos);
-      }
-    }
-  }else{
-      login();
-      echo "
-      </header>
-      <main class='cuerpo'>
-      ";
-    }*/
     ?>
   </main>
 </body>
@@ -84,6 +52,12 @@
 function existeUsuarioAsociado(){
 	 		return $_SESSION['nombre']=='user' and $_SESSION['contraseña']=='123';
 	 	}
+    
+    //sesion array de Alumnos
+    //sesion user
+    //swith mismo name diferente value
+    //validLogon(usuarios)
+    
 function login(){
   echo "
   <form class='login' action='index.php' method='GET'>
