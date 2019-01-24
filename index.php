@@ -10,45 +10,39 @@
   <header class="cabecera">
     <?php
     if(!isset($_SESSION['alumnos'])){
-		$_SESSION['alumnos'] = [
-   ['nombre'=> 'Eugenio', 'apellido' => 'Martínez', 'notas' => []],
-   ['nombre'=> 'Marta', 'apellido' => 'Carrera', 'notas' => []],
-   ['nombre'=> 'Nacho', 'apellido' => 'Herrera', 'notas' => []],
-   ['nombre'=> 'Anxo', 'apellido' => 'Iglesias', 'notas' => []]
- ];
-    if(isset($_GET['salir'])){
-			if($_GET['salir']=="Salir"){
-				session_destroy();
-      	echo '<script>location.href="index.php"</script>';
-      }
-		}
-    if(session_status() == PHP_SESSION_ACTIVE){
-          imprimeBotonAlumnos();
-          imprimeBotonMatricula();
-          imprimeBotonExamen();
-          imprimeBotonNotas();
-          imprimeBotonsalir();
-      echo "
-      </header>
-      <main class='cuerpo'>
-      ";
-    }else{
-      if($_GET['nombre']=='user' and $_GET['contraseña']=='123'){
-				$_SESSION['nombre'] = $_GET['nombre'];
-				$_SESSION['contraseña'] = $_GET['contraseña'];
-				echo "<p>Bienvenido ".$_SESSION['nombre']."! Tu id de sesión actual es: ".session_id()."</p>";
-        imprimeBotonAlumnos();
-        imprimeBotonMatricula();
-        imprimeBotonExamen();
-        imprimeBotonNotas();
-        imprimeBotonsalir();
-				return;
-			}
-			else if($_GET['nombre']!=NULL or $_GET['contraseña']!=NULL){
-	 			echo '<div style="color:red; border:solid 1px;">Datos incompletos</div>';
-			}
-			Login();
+		    $_SESSION['alumnos'] = [
+          ['nombre'=> 'Eugenio', 'apellido' => 'Martínez', 'notas' => []],
+          ['nombre'=> 'Marta', 'apellido' => 'Carrera', 'notas' => []],
+          ['nombre'=> 'Nacho', 'apellido' => 'Herrera', 'notas' => []],
+          ['nombre'=> 'Anxo', 'apellido' => 'Iglesias', 'notas' => []]
+        ];
     }
+    //if para cerrar la sesión.
+    if(isset($_POST['salir'])){
+      if($_POST['salir']=="Salir"){
+        session_destroy();
+        echo '<script>location.href="index.php"</script>';
+      }
+    }
+    login();
+    if($_POST['nombre']=='user' and $_POST['contraseña']=='123'){
+	  $_SESSION['nombre'] = $_POST['nombre'];
+	   $_SESSION['contraseña'] = $_POST['contraseña'];
+	    echo "<p>Bienvenido ".$_SESSION['nombre']."! Tu id de sesión actual es: ".session_id()."</p>";
+    imprimeBotonAlumnos();
+    imprimeBotonMatricula();
+    imprimeBotonExamen();
+    imprimeBotonNotas();
+    imprimeBotonsalir();
+    echo "
+    </header>
+    <main class='cuerpo'>
+    ";
+	     return;
+  }else if($_POST['nombre']!=NULL or $_POST['contraseña']!=NULL){
+		     echo '<div style="color:red; border:solid 1px;">Datos incompletos</div>';
+    }
+
     ?>
   </main>
 </body>
@@ -62,7 +56,7 @@
 
 function login(){
   echo "
-  <form class='login' action='index.php' method='GET'>
+  <form class='login' action='index.php' method='POST'>
   <input type='text' name='nombre' placeholder='Introduce tu nombre'><br>
   <input type='text' name='contraseña' placeholder='introduce tu contraseña'><br>
   <input type='submit' value='Enviar'>
