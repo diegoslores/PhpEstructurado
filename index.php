@@ -10,50 +10,60 @@
   <header class="cabecera">
     <?php
     if(!isset($_SESSION['alumnos'])){
-		    $_SESSION['alumnos'] = [
+		      $_SESSION['alumnos'] = [
           ['nombre'=> 'Eugenio', 'apellido' => 'Martínez', 'notas' => []],
           ['nombre'=> 'Marta', 'apellido' => 'Carrera', 'notas' => []],
           ['nombre'=> 'Nacho', 'apellido' => 'Herrera', 'notas' => []],
           ['nombre'=> 'Anxo', 'apellido' => 'Iglesias', 'notas' => []]
         ];
     }
-    //if para cerrar la sesión.
-    if(isset($_POST['salir'])){
-      if($_POST['salir']=="Salir"){
-        session_destroy();
-        echo '<script>location.href="index.php"</script>';
+    //Si existe el usuario 'user' con pass '123' entra en el programa.
+    if(isset($_POST['nombre'])){
+      opciones();
+    }else{
+      login();
+    }
+  //Mediante un switch ejecuto las diferentes opciones.
+    if(isset($_POST["menu"])){
+      switch($_POST["menu"]){
+        case 'Alumnos':
+          imprimirAlumnos($_SESSION['alumnos']);
+          break;
+        case 'Matricula':
+          imprimirAlumnos($_SESSION['alumnos']);
+          break;
+        case 'Examen':
+          imprimirAlumnos($_SESSION['alumnos']);
+          break;
+        case 'Notas':
+          imprimirAlumnos($_SESSION['alumnos']);
+          break;
+        case 'Salir':
+          cerrarSesion();
+          break;
       }
     }
-    login();
-    if($_POST['nombre']=='user' and $_POST['contraseña']=='123'){
-	  $_SESSION['nombre'] = $_POST['nombre'];
-	   $_SESSION['contraseña'] = $_POST['contraseña'];
-	    echo "<p>Bienvenido ".$_SESSION['nombre']."! Tu id de sesión actual es: ".session_id()."</p>";
-    imprimeBotonAlumnos();
-    imprimeBotonMatricula();
-    imprimeBotonExamen();
-    imprimeBotonNotas();
-    imprimeBotonsalir();
-    echo "
-    </header>
-    <main class='cuerpo'>
-    ";
-	     return;
-  }else if($_POST['nombre']!=NULL or $_POST['contraseña']!=NULL){
-		     echo '<div style="color:red; border:solid 1px;">Datos incompletos</div>';
-    }
-
     ?>
   </main>
 </body>
 </html>
 <?php
-
-    //sesion array de Alumnos
-    //sesion user
-    //swith mismo name diferente value
-    //validLogon(usuarios)
-
+function opciones(){
+  if($_POST['nombre']=='user' and $_POST['contraseña']=='123'){
+    $_SESSION['user'] = $_POST['nombre'];
+    $_SESSION['pass'] = $_POST['contraseña'];
+  echo "<p>Bienvenido ".$_SESSION['user']."! Tu id de sesión actual es: ".session_id()."</p>";
+  imprimeBotones();
+  echo "
+  </header>
+  <main class='cuerpo'>
+  ";
+  }else if($_POST['nombre']!=NULL or $_POST['contraseña']!=NULL){
+    echo '<div style="color:red; border:solid 1px;">Datos incompletos</div>';
+    login();
+  }
+}
+//funcion de formulario de login
 function login(){
   echo "
   <form class='login' action='index.php' method='POST'>
@@ -63,36 +73,17 @@ function login(){
   </form>";
 }
 //Botones de selección;
-function imprimeBotonAlumnos(){
+function imprimeBotones(){
   echo "
     <form action='index.php' method='POST'>
-      <input type='submit' name='alumnos' value='Alumnos'>
+      <input type='submit' name='menu' value='Alumnos'>
+      <input type='submit' name='menu' value='Matricula'>
+      <input type='submit' name='menu' value='Examen'>
+      <input type='submit' name='menu' value='Notas'>
+      <input type='submit' name='menu' value='Salir'>
     </form>";
 }
-function imprimeBotonMatricula(){
-  echo "
-    <form action='index.php' method='POST'>
-      <input type='submit' name='matricula' value='Matricula'>
-    </form>";
-}
-function imprimeBotonExamen(){
-  echo "
-    <form action='index.php' method='POST'>
-      <input type='submit' name='examen' value='Examen'>
-    </form>";
-}
-function imprimeBotonNotas(){
-  echo "
-    <form action='index.php' method='POST'>
-      <input type='submit' name='notas' value='Notas'>
-    </form>";
-}
-function imprimeBotonsalir(){
-  echo "
-    <form action='index.php' method='POST'>
-      <input type='submit' name='salir' value='Salir'>
-    </form>";
-}
+//funciones de los botones
 function imprimirAlumnos($datos){
   echo "
   <div class='todo'>
@@ -105,5 +96,15 @@ function imprimirAlumnos($datos){
     echo "<li><pre>".$alumno['nombre']. "\t\t" .$alumno['apellido']."</pre></li>";
   };
   echo "</ol></div></div>";
+}
+//funcion de cerrar sesiones.
+function cerrarSesion(){
+  //Para cerrar la sesión.
+  if(isset($_POST['menu'])){
+    if($_POST['menu']=="salir"){
+      session_destroy();
+      echo '<script>location.href="index.php"</script>';
+    }
+  }
 }
 ?>
