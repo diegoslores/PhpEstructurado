@@ -11,10 +11,10 @@
     <?php
     if(!isset($_SESSION['alumnos'])){
 		      $_SESSION['alumnos'] = [
-          ['nombre'=> 'Eugenio', 'apellido' => 'Martínez', 'notas' => []],
-          ['nombre'=> 'Marta', 'apellido' => 'Carrera', 'notas' => []],
-          ['nombre'=> 'Nacho', 'apellido' => 'Herrera', 'notas' => []],
-          ['nombre'=> 'Anxo', 'apellido' => 'Iglesias', 'notas' => []]
+          ['nombre'=> 'Eugenio', 'apellido' => 'Martínez', 'notas' => [3,5]],
+          ['nombre'=> 'Marta', 'apellido' => 'Carrera', 'notas' => [3]],
+          ['nombre'=> 'Nacho', 'apellido' => 'Herrera', 'notas' => [3]],
+          ['nombre'=> 'Anxo', 'apellido' => 'Iglesias', 'notas' => [3]]
         ];
     }
     //Si existe el usuario 'user' con pass '123' entra en el programa.
@@ -23,6 +23,9 @@
     }else{
       login();
     }
+    echo "
+    </header><main class='cuerpo'>
+    ";
   //Mediante un switch ejecuto las diferentes opciones.
     if(isset($_POST["menu"])){
       switch($_POST["menu"]){
@@ -30,13 +33,13 @@
           imprimirAlumnos($_SESSION['alumnos']);
           break;
         case 'Matricula':
-          imprimirAlumnos($_SESSION['alumnos']);
+
           break;
         case 'Examen':
-          imprimirAlumnos($_SESSION['alumnos']);
+
           break;
         case 'Notas':
-          imprimirAlumnos($_SESSION['alumnos']);
+          printAlumnosNotas($_SESSION['alumnos']);
           break;
         case 'Salir':
           cerrarSesion();
@@ -52,12 +55,7 @@ function opciones(){
   if($_POST['nombre']=='user' and $_POST['contraseña']=='123'){
     $_SESSION['user'] = $_POST['nombre'];
     $_SESSION['pass'] = $_POST['contraseña'];
-  echo "<p>Bienvenido ".$_SESSION['user']."! Tu id de sesión actual es: ".session_id()."</p>";
   imprimeBotones();
-  echo "
-  </header>
-  <main class='cuerpo'>
-  ";
   }else if($_POST['nombre']!=NULL or $_POST['contraseña']!=NULL){
     echo '<div style="color:red; border:solid 1px;">Datos incompletos</div>';
     login();
@@ -97,6 +95,29 @@ function imprimirAlumnos($datos){
   };
   echo "</ol></div></div>";
 }
+function printAlumnosNotas($datos){
+  echo "
+  <div class='todo'>
+  <h3><pre>4.Listado de Alumnos y Notas</pre></h3>
+  <div class='nomApeNota'><pre>Nombre\t\tApellido\t\tNotas</pre></div>
+  <div class='lista'>
+  <ol><pre>
+  ";
+  /*array_map(function($var){
+
+  },$datos);*/
+  foreach($datos as $alumno){
+    echo "<li>".$alumno['nombre']."\t\t".$alumno['apellido']."</li><br/>";
+  };
+  echo "</pre></ol></div></div>";
+}
+/*
+echo "<pre>" ;
+echo "Product ID\tAmount";
+array_map(function ($var) {
+    echo "\n", $var['product_id'], "\t\t", $var['amount'];
+}, $array);
+*/
 //funcion de cerrar sesiones.
 function cerrarSesion(){
   //Para cerrar la sesión.

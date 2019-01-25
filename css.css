@@ -3,7 +3,7 @@
   margin: 5px;
   padding: 5px;
   min-height: 150px;
-  background-color: blue;
+  background-color: lightblue;
 }
 form {
   margin-bottom: 0;
@@ -14,7 +14,6 @@ form {
   min-height: 300px;
 }
 .todo {
-  width: 255px;
   overflow: auto;
 }
 h3 {
@@ -25,9 +24,13 @@ h3 {
   border-bottom: solid 2px;
   width: 175px;
 }
+.nomApeNota {
+  margin-left: 2.5em;
+  border-bottom: solid 2px;
+  width: 380px;
+}
 ol {
   margin-top: 0;
-  padding-right: 40px;
   float: left;
   list-style: none;
 }
