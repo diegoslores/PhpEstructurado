@@ -14,10 +14,10 @@
     <?php
     if(!isset($_SESSION['alumnos'])){
 		  $_SESSION['alumnos'] = [
-        ['nombre'=> 'Eugenio', 'apellido' => 'Martínez', 'notas' => [5]],
-        ['nombre'=> 'Marta', 'apellido' => 'Carrera', 'notas' => [6]],
-        ['nombre'=> 'Nacho', 'apellido' => 'Herrera', 'notas' => [4]],
-        ['nombre'=> 'Anxo', 'apellido' => 'Iglesias', 'notas' => [7]]
+        ['nombre'=> 'Eugenio', 'apellido' => 'Martínez', 'notas' => []],
+        ['nombre'=> 'Marta', 'apellido' => 'Carrera', 'notas' => [0]],
+        ['nombre'=> 'Nacho', 'apellido' => 'Herrera', 'notas' => []],
+        ['nombre'=> 'Anxo', 'apellido' => 'Iglesias', 'notas' => [0,5]]
       ];
     }
     //Si existe el usuario 'user' con pass '123' entra en el programa.
@@ -74,6 +74,7 @@ function imprimirAlumnos($datos){
   };
   echo "</ol></div>";
 }
+
 function matricularAlumno(){
   echo "<h3><pre>2.Matricular Alumnos</pre></h3>
   <form class='formMatricula' action='index.php' method='GET'>
@@ -85,26 +86,33 @@ function matricularAlumno(){
 			echo "<h3 style='color:red;'>Rellena los campos.</h3>";
 		}else{echo "hola";}
 }
+
 function simuladorExamen(){
   echo "<h3><pre>3.Simulador de Examen</pre></h3>
   <div class='nomApe'><pre>Simulando...</pre></div>
   <ol>";
 }
+
 function printAlumnosNotas($datos){
   echo "<h3><pre>4.Listado de Alumnos y Notas</pre></h3>
   <div class='nomApeNota'><pre><span>Nombre  \t Apellido\tMedia\tNotas</span></pre></div>
   <table border=1>
   <ol><pre>";
   foreach ($datos as $alumno) {
-  	echo $alumno['nombre']."\t\t". $alumno['apellido']." \t";
-    echo notaMedia($alumno["notas"])."\t";
-  	 foreach($alumno['notas'] as $nota){
-  		echo "$nota | ";
-  	 }
+    echo $alumno['nombre']."\t\t". $alumno['apellido']." \t";
+    if($alumno['notas'] == NULL){
+      echo "- ";
+    }else{
+      echo notaMedia($alumno["notas"])."\t";
+    }    
+  	foreach($alumno['notas'] as $nota){             
+      echo "$nota | ";         
+    }
     	echo "<br /><br />";
   }
     echo "</ol></div>";
 }
+
 //funcion de formulario de login
 function login(){
   echo "<form class='login' action='index.php' method='POST'>
@@ -113,6 +121,7 @@ function login(){
   <input type='submit' value='Enviar'>
   </form>";
 }
+
 //Botones de selección;
 function imprimeBotones(){
   echo "<form action='index.php' method='POST'>
@@ -123,6 +132,7 @@ function imprimeBotones(){
       <input type='submit' name='menu' value='LogOut'>
     </form>";
 }
+
 //funcion de cerrar sesiones.
 function cerrarSesion(){
   if(isset($_POST['menu'])){
@@ -132,6 +142,7 @@ function cerrarSesion(){
     }
   }
 }
+
 function notaMedia($notas){
 	$sumaNotas = array_sum($notas);
 	$totalNotas = count($notas);
