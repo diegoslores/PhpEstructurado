@@ -21,16 +21,13 @@
         ];
     }
     //Si existe el usuario 'user' con pass '123' entra en el programa.
-    if(isset($_POST['nombre'])){
+    if(isset($_POST['usuario'])){
       opciones();
     }else{
       login();
     }
-    echo "
-      </nav>
-      </header>
-      <main class='cuerpo'>
-    ";
+    echo "</nav></header>
+      <main class='cuerpo'>";
   //Mediante un switch ejecuto las diferentes opciones.
     if(isset($_POST["menu"])){
       switch($_POST["menu"]){
@@ -57,11 +54,11 @@
 </html>
 <?php
 function opciones(){
-  if($_POST['nombre']=='user' and $_POST['contraseña']=='123'){
-    $_SESSION['user'] = $_POST['nombre'];
+  if($_POST['usuario']=='user' and $_POST['contraseña']=='123'){
+    $_SESSION['user'] = $_POST['usuario'];
     $_SESSION['pass'] = $_POST['contraseña'];
   imprimeBotones();
-}else if($_POST['nombre']==NULL or $_POST['contraseña']==NULL){
+}else if($_POST['usuario']==NULL or $_POST['contraseña']==NULL){
     echo '<div id="incompleto"><pre>Datos Incompletos</pre></div>';
     login();
   }
@@ -69,32 +66,26 @@ function opciones(){
 
 //funciones de los botones
 function imprimirAlumnos($datos){
-  echo "
-  <h3><pre>1.Listado de Alumnos</pre></h3>
+  echo "<h3><pre>1.Listado de Alumnos</pre></h3>
   <div class='nomApe'><pre><span>Nombre\t\tApellido</pre></span></div>
-  <div class='lista'>
-  <ol>
-  ";
+  <div class='lista'><ol>";
   foreach($datos as $alumno){
     echo "<li><pre>".$alumno['nombre']."\t\t".$alumno['apellido']."</pre></li>";
   };
   echo "</ol></div>";
 }
 function matricularAlumno(){
-  echo "
-  <h3><pre>2.Matricular Alumnos</pre></h3>
-  <div class='nomApe'><pre>Nombre\t\tApellido</pre></div>
-  <div class='lista'>
-  <ol>
-  ";
+  echo "<h3><pre>2.Matricular Alumnos</pre></h3>
+  <form class='formMatricula' action='index.php' method='GET'>
+	 	<input type='text' name='nombre' placeholder='Introduce Nombre Alumno'>
+	 	<input type='text' name='apellido' placeholder='Introduce Apellido Alumno'>
+ 		<input type='submit' value='Enviar'/>
+	</form>";
 }
 function simuladorExamen(){
-  echo "
-  <h3><pre>3.Simulador de Examen</pre></h3>
-  <div class='nomApe'><pre>Nombre\t\tApellido</pre></div>
-  <div class='lista'>
-  <ol>
-  ";
+  echo "<h3><pre>3.Simulador de Examen</pre></h3>
+  <div class='nomApe'><pre>Simulando...</pre></div>
+  <ol>";
 }
 function printAlumnosNotas($datos){
   echo "<h3><pre>4.Listado de Alumnos y Notas</pre></h3>
@@ -111,20 +102,17 @@ function printAlumnosNotas($datos){
   }
     echo "</ol></div>";
 }
-
 //funcion de formulario de login
 function login(){
-  echo "
-  <form class='login' action='index.php' method='POST'>
-  <input type='text' name='nombre' placeholder='Introduce tu nombre'><br>
+  echo "<form class='login' action='index.php' method='POST'>
+  <input type='text' name='usuario' placeholder='Introduce tu nombre'><br>
   <input type='text' name='contraseña' placeholder='introduce tu contraseña' autocomplete='off'><br>
   <input type='submit' value='Enviar'>
   </form>";
 }
 //Botones de selección;
 function imprimeBotones(){
-  echo "
-    <form action='index.php' method='POST'>
+  echo "<form action='index.php' method='POST'>
       <input type='submit' name='menu' value='Alumnos'>
       <input type='submit' name='menu' value='Matricula'>
       <input type='submit' name='menu' value='Examen'>

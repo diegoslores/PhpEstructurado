@@ -67,6 +67,16 @@ span{
   border-bottom: solid 2px;
   width: 250px;
 }
+/*Apartado2*/
+.formMatricula{
+  margin-left: 2em;
+}
+.formMatricula input{
+  margin: 0.5em;
+  padding: 5px;
+  width: 200px;
+  border-radius: 12px;
+}
 /*Apartado 4*/
 .nomApeNota {
   margin-left: 2.5em;
