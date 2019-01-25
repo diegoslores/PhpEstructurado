@@ -71,7 +71,7 @@ function opciones(){
 function imprimirAlumnos($datos){
   echo "
   <h3><pre>1.Listado de Alumnos</pre></h3>
-  <div class='nomApe'><pre>Nombre\t\tApellido</pre></div>
+  <div class='nomApe'><pre><span>Nombre\t\tApellido</pre></span></div>
   <div class='lista'>
   <ol>
   ";
@@ -98,13 +98,14 @@ function simuladorExamen(){
 }
 function printAlumnosNotas($datos){
   echo "<h3><pre>4.Listado de Alumnos y Notas</pre></h3>
-  <div class='nomApeNota'><pre>Nombre\t\tApellido\tNotas</pre></div>
+  <div class='nomApeNota'><pre><span>Nombre\t\tApellido\tMedia\tNotas</span></pre></div>
   <table border=1>
-  <ol><pre>";  
-  foreach ($datos as $alumno) {    
+  <ol><pre>";
+  foreach ($datos as $alumno) {
   	echo $alumno['nombre']."\t\t". $alumno['apellido']." \t";
+    echo notaMedia($alumno["notas"])."\t";
   	 foreach($alumno['notas'] as $nota){
-  		echo "$nota | ";	
+  		echo "$nota | ";
   	 }
     	echo "<br /><br />";
   }
@@ -139,5 +140,11 @@ function cerrarSesion(){
       echo '<script>location.href="index.php"</script>';
     }
   }
+}
+function notaMedia($notas){
+	$sumaNotas = array_sum($notas);
+	$totalNotas = count($notas);
+	$media = $sumaNotas/$totalNotas;
+	return $media;
 }
 ?>

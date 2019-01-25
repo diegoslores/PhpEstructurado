@@ -53,18 +53,23 @@ h3 {
 }
 ol {
   margin-top: 0;
+  margin-left: 1em;
   float: left;
   list-style: none;
   list-style-position: center;
+}
+span{
+  margin-left: 1em;
 }
 /*Apartado 1*/
 .nomApe {
   margin-left: 2.5em;
   border-bottom: solid 2px;
-  width: 200px;
+  width: 250px;
 }
+/*Apartado 4*/
 .nomApeNota {
   margin-left: 2.5em;
   border-bottom: solid 2px;
-  width: 380px;
+  width: 500px;
 }
