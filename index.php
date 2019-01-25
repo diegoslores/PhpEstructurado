@@ -13,12 +13,12 @@
   <nav class="cabecera">
     <?php
     if(!isset($_SESSION['alumnos'])){
-		      $_SESSION['alumnos'] = [
-          ['nombre'=> 'Eugenio', 'apellido' => 'Martínez', 'notas' => [3,5]],
-          ['nombre'=> 'Marta', 'apellido' => 'Carrera', 'notas' => [3]],
-          ['nombre'=> 'Nacho', 'apellido' => 'Herrera', 'notas' => [3]],
-          ['nombre'=> 'Anxo', 'apellido' => 'Iglesias', 'notas' => [3]]
-        ];
+		  $_SESSION['alumnos'] = [
+        ['nombre'=> 'Eugenio', 'apellido' => 'Martínez', 'notas' => [3,5]],
+        ['nombre'=> 'Marta', 'apellido' => 'Carrera', 'notas' => [3]],
+        ['nombre'=> 'Nacho', 'apellido' => 'Herrera', 'notas' => [3]],
+        ['nombre'=> 'Anxo', 'apellido' => 'Iglesias', 'notas' => [3]]
+      ];
     }
     //Si existe el usuario 'user' con pass '123' entra en el programa.
     if(isset($_POST['usuario'])){
@@ -67,7 +67,7 @@ function opciones(){
 //funciones de los botones
 function imprimirAlumnos($datos){
   echo "<h3><pre>1.Listado de Alumnos</pre></h3>
-  <div class='nomApe'><pre><span>Nombre\t\tApellido</pre></span></div>
+  <div class='nomApe'><pre><span>Nombre  \t Apellido</pre></span></div>
   <div class='lista'><ol>";
   foreach($datos as $alumno){
     echo "<li><pre>".$alumno['nombre']."\t\t".$alumno['apellido']."</pre></li>";
@@ -81,6 +81,9 @@ function matricularAlumno(){
 	 	<input type='text' name='apellido' placeholder='Introduce Apellido Alumno'>
  		<input type='submit' value='Enviar'/>
 	</form>";
+  if($_GET['nombre'] == NULL || $_GET['apellido'] == NULL ){
+			echo "<h3 style='color:red;'>Rellena los campos.</h3>";
+		}else{echo "hola";}
 }
 function simuladorExamen(){
   echo "<h3><pre>3.Simulador de Examen</pre></h3>
@@ -89,7 +92,7 @@ function simuladorExamen(){
 }
 function printAlumnosNotas($datos){
   echo "<h3><pre>4.Listado de Alumnos y Notas</pre></h3>
-  <div class='nomApeNota'><pre><span>Nombre\t\tApellido\tMedia\tNotas</span></pre></div>
+  <div class='nomApeNota'><pre><span>Nombre  \t Apellido\tMedia\tNotas</span></pre></div>
   <table border=1>
   <ol><pre>";
   foreach ($datos as $alumno) {
