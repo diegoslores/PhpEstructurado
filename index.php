@@ -14,10 +14,10 @@
     <?php
     if(!isset($_SESSION['alumnos'])){
 		  $_SESSION['alumnos'] = [
-        ['nombre'=> 'Eugenio', 'apellido' => 'Martínez', 'notas' => [3,5]],
-        ['nombre'=> 'Marta', 'apellido' => 'Carrera', 'notas' => [3]],
-        ['nombre'=> 'Nacho', 'apellido' => 'Herrera', 'notas' => [3]],
-        ['nombre'=> 'Anxo', 'apellido' => 'Iglesias', 'notas' => [3]]
+        ['nombre'=> 'Eugenio', 'apellido' => 'Martínez', 'notas' => [5]],
+        ['nombre'=> 'Marta', 'apellido' => 'Carrera', 'notas' => [6]],
+        ['nombre'=> 'Nacho', 'apellido' => 'Herrera', 'notas' => [4]],
+        ['nombre'=> 'Anxo', 'apellido' => 'Iglesias', 'notas' => [7]]
       ];
     }
     //Si existe el usuario 'user' con pass '123' entra en el programa.
@@ -57,9 +57,9 @@ function opciones(){
   if($_POST['usuario']=='user' and $_POST['contraseña']=='123'){
     $_SESSION['user'] = $_POST['usuario'];
     $_SESSION['pass'] = $_POST['contraseña'];
-  imprimeBotones();
-}else if($_POST['usuario']==NULL or $_POST['contraseña']==NULL){
-    echo '<div id="incompleto"><pre>Datos Incompletos</pre></div>';
+    imprimeBotones();
+  }else if(($_POST['usuario']!='user' and $_POST['contraseña']!='123') or $_POST['usuario']!='user' or $_POST['contraseña']!='123'){
+    echo '<div id="incompleto"><pre>Login Erroneo</pre></div>';
     login();
   }
 }
