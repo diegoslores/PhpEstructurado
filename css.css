@@ -1,4 +1,13 @@
-/*header*/
+header{
+  border: solid 2px;
+  margin: 5px;
+  text-align: center;
+  background-color: darkblue;
+}
+h2{
+  color: white;
+}
+/*nav*/
 .cabecera {
   border: solid 2px;
   margin: 5px;
@@ -16,7 +25,7 @@ form {
   width: 200px;
 }
 #incompleto{
-  padding-left:50px;
+  margin: 1px auto;
   max-width: 200px;
   color:red;
   border:solid;
@@ -31,10 +40,12 @@ input {
 }
 /*Main*/
 .cuerpo {
-  border: solid 2px;
+  border: solid 2px black;
   margin: 5px;
   min-height: 300px;
   overflow: auto;
+  background-color: darkblue;
+  color: white;
 }
 /*Titulos de secciones*/
 h3 {
@@ -44,6 +55,7 @@ ol {
   margin-top: 0;
   float: left;
   list-style: none;
+  list-style-position: center;
 }
 /*Apartado 1*/
 .nomApe {

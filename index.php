@@ -7,7 +7,10 @@
   <link rel="stylesheet" type="text/css" href="css.css" />
 </head>
 <body>
-  <header class="cabecera">
+  <header>
+    <h2><pre>..::ACADEMIA SANCLEMENTE::..</pre></h2>
+
+  <nav class="cabecera">
     <?php
     if(!isset($_SESSION['alumnos'])){
 		      $_SESSION['alumnos'] = [
@@ -24,7 +27,8 @@
       login();
     }
     echo "
-    </header>
+      </nav>
+      </header>
       <main class='cuerpo'>
     ";
   //Mediante un switch ejecuto las diferentes opciones.
@@ -34,15 +38,15 @@
           imprimirAlumnos($_SESSION['alumnos']);
           break;
         case 'Matricula':
-
+          matricularAlumno();
           break;
         case 'Examen':
-
+          simuladorExamen();
           break;
         case 'Notas':
           printAlumnosNotas($_SESSION['alumnos']);
           break;
-        case 'Salir':
+        case 'LogOut':
           cerrarSesion();
           break;
       }
@@ -62,12 +66,57 @@ function opciones(){
     login();
   }
 }
+
+//funciones de los botones
+function imprimirAlumnos($datos){
+  echo "
+  <h3><pre>1.Listado de Alumnos</pre></h3>
+  <div class='nomApe'><pre>Nombre\t\tApellido</pre></div>
+  <div class='lista'>
+  <ol>
+  ";
+  foreach($datos as $alumno){
+    echo "<li><pre>".$alumno['nombre']."\t\t".$alumno['apellido']."</pre></li>";
+  };
+  echo "</ol></div>";
+}
+function matricularAlumno(){
+  echo "
+  <h3><pre>2.Matricular Alumnos</pre></h3>
+  <div class='nomApe'><pre>Nombre\t\tApellido</pre></div>
+  <div class='lista'>
+  <ol>
+  ";
+}
+function simuladorExamen(){
+  echo "
+  <h3><pre>3.Simulador de Examen</pre></h3>
+  <div class='nomApe'><pre>Nombre\t\tApellido</pre></div>
+  <div class='lista'>
+  <ol>
+  ";
+}
+function printAlumnosNotas($datos){
+  echo "<h3><pre>4.Listado de Alumnos y Notas</pre></h3>
+  <div class='nomApeNota'><pre>Nombre\t\tApellido\tNotas</pre></div>
+  <table border=1>
+  <ol><pre>";  
+  foreach ($datos as $alumno) {    
+  	echo $alumno['nombre']."\t\t". $alumno['apellido']." \t";
+  	 foreach($alumno['notas'] as $nota){
+  		echo "$nota | ";	
+  	 }
+    	echo "<br /><br />";
+  }
+    echo "</ol></div>";
+}
+
 //funcion de formulario de login
 function login(){
   echo "
   <form class='login' action='index.php' method='POST'>
   <input type='text' name='nombre' placeholder='Introduce tu nombre'><br>
-  <input type='text' name='contraseña' placeholder='introduce tu contraseña'><br>
+  <input type='text' name='contraseña' placeholder='introduce tu contraseña' autocomplete='off'><br>
   <input type='submit' value='Enviar'>
   </form>";
 }
@@ -82,44 +131,8 @@ function imprimeBotones(){
       <input type='submit' name='menu' value='LogOut'>
     </form>";
 }
-//funciones de los botones
-function imprimirAlumnos($datos){
-  echo "
-  <h3><pre>1.Listado de Alumnos</pre></h3>
-  <div class='nomApe'><pre>Nombre\t\tApellido</pre></div>
-  <div class='lista'>
-  <ol>
-  ";
-  foreach($datos as $alumno){
-    echo "<li><pre>".$alumno['nombre']. "\t\t" .$alumno['apellido']."</pre></li>";
-  };
-  echo "</ol></div>";
-}
-function printAlumnosNotas($datos){
-  echo "
-  <h3><pre>4.Listado de Alumnos y Notas</pre></h3>
-  <div class='nomApeNota'><pre>Nombre\t\tApellido\t\tNotas</pre></div>
-  <div class='lista'>
-  <ol><pre>
-  ";
-  /*array_map(function($var){
-
-  },$datos);*/
-  foreach($datos as $alumno){
-    echo "<li>".$alumno['nombre']."\t\t".$alumno['apellido']."</li><br/>";
-  };
-  echo "</pre></ol></div>";
-}
-/*
-echo "<pre>" ;
-echo "Product ID\tAmount";
-array_map(function ($var) {
-    echo "\n", $var['product_id'], "\t\t", $var['amount'];
-}, $array);
-*/
 //funcion de cerrar sesiones.
 function cerrarSesion(){
-  //Para cerrar la sesión.
   if(isset($_POST['menu'])){
     if($_POST['menu']=="LogOut"){
       session_destroy();
