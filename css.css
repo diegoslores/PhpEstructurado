@@ -1,3 +1,4 @@
+/*header*/
 .cabecera {
   border: solid 2px;
   margin: 5px;
@@ -5,42 +6,53 @@
   min-height: 150px;
   background-color: lightblue;
 }
+/*Formulario de Login*/
 form {
   margin-bottom: 0;
-}
-.cuerpo {
-  border: solid 2px;
-  margin: 5px;
-  min-height: 300px;
-}
-.todo {
-  overflow: auto;
-}
-h3 {
-  margin-left: 20px;
-}
-.nomApe {
-  margin-left: 2.5em;
-  border-bottom: solid 2px;
-  width: 175px;
-}
-.nomApeNota {
-  margin-left: 2.5em;
-  border-bottom: solid 2px;
-  width: 380px;
-}
-ol {
-  margin-top: 0;
-  float: left;
-  list-style: none;
 }
 .login input{
   margin: 1em;
   padding: 5px;
   width: 200px;
 }
+#incompleto{
+  padding-left:50px;
+  max-width: 200px;
+  color:red;
+  border:solid;
+  }
+/*Botones*/
 input {
   margin: 0.5em;
-  padding: 5px;
+  margin-top: 50px;
+  padding: 10px;
   width: 100px;
+  border-radius: 12px;
+}
+/*Main*/
+.cuerpo {
+  border: solid 2px;
+  margin: 5px;
+  min-height: 300px;
+  overflow: auto;
+}
+/*Titulos de secciones*/
+h3 {
+  margin-left: 20px;
+}
+ol {
+  margin-top: 0;
+  float: left;
+  list-style: none;
+}
+/*Apartado 1*/
+.nomApe {
+  margin-left: 2.5em;
+  border-bottom: solid 2px;
+  width: 200px;
+}
+.nomApeNota {
+  margin-left: 2.5em;
+  border-bottom: solid 2px;
+  width: 380px;
 }

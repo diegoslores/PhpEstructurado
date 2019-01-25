@@ -24,7 +24,8 @@
       login();
     }
     echo "
-    </header><main class='cuerpo'>
+    </header>
+      <main class='cuerpo'>
     ";
   //Mediante un switch ejecuto las diferentes opciones.
     if(isset($_POST["menu"])){
@@ -56,8 +57,8 @@ function opciones(){
     $_SESSION['user'] = $_POST['nombre'];
     $_SESSION['pass'] = $_POST['contraseña'];
   imprimeBotones();
-  }else if($_POST['nombre']!=NULL or $_POST['contraseña']!=NULL){
-    echo '<div style="color:red; border:solid 1px;">Datos incompletos</div>';
+}else if($_POST['nombre']==NULL or $_POST['contraseña']==NULL){
+    echo '<div id="incompleto"><pre>Datos Incompletos</pre></div>';
     login();
   }
 }
@@ -78,13 +79,12 @@ function imprimeBotones(){
       <input type='submit' name='menu' value='Matricula'>
       <input type='submit' name='menu' value='Examen'>
       <input type='submit' name='menu' value='Notas'>
-      <input type='submit' name='menu' value='Salir'>
+      <input type='submit' name='menu' value='LogOut'>
     </form>";
 }
 //funciones de los botones
 function imprimirAlumnos($datos){
   echo "
-  <div class='todo'>
   <h3><pre>1.Listado de Alumnos</pre></h3>
   <div class='nomApe'><pre>Nombre\t\tApellido</pre></div>
   <div class='lista'>
@@ -93,11 +93,10 @@ function imprimirAlumnos($datos){
   foreach($datos as $alumno){
     echo "<li><pre>".$alumno['nombre']. "\t\t" .$alumno['apellido']."</pre></li>";
   };
-  echo "</ol></div></div>";
+  echo "</ol></div>";
 }
 function printAlumnosNotas($datos){
   echo "
-  <div class='todo'>
   <h3><pre>4.Listado de Alumnos y Notas</pre></h3>
   <div class='nomApeNota'><pre>Nombre\t\tApellido\t\tNotas</pre></div>
   <div class='lista'>
@@ -109,7 +108,7 @@ function printAlumnosNotas($datos){
   foreach($datos as $alumno){
     echo "<li>".$alumno['nombre']."\t\t".$alumno['apellido']."</li><br/>";
   };
-  echo "</pre></ol></div></div>";
+  echo "</pre></ol></div>";
 }
 /*
 echo "<pre>" ;
@@ -122,7 +121,7 @@ array_map(function ($var) {
 function cerrarSesion(){
   //Para cerrar la sesión.
   if(isset($_POST['menu'])){
-    if($_POST['menu']=="salir"){
+    if($_POST['menu']=="LogOut"){
       session_destroy();
       echo '<script>location.href="index.php"</script>';
     }
