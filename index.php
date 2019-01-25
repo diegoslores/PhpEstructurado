@@ -109,7 +109,7 @@ function printAlumnosNotas($datos){
 function login(){
   echo "<form class='login' action='index.php' method='POST'>
   <input type='text' name='usuario' placeholder='Introduce tu nombre'><br>
-  <input type='text' name='contraseña' placeholder='introduce tu contraseña' autocomplete='off'><br>
+  <input type='password' name='contraseña' placeholder='introduce tu contraseña'><br>
   <input type='submit' value='Enviar'>
   </form>";
 }
