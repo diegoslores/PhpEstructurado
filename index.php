@@ -133,9 +133,13 @@ function cerrarSesion(){
   }
 }
 function notaMedia($notas){
-	$sumaNotas = array_sum($notas);
-	$totalNotas = count($notas);
-	$media = $sumaNotas/$totalNotas;
-	return $media;
+  if($notas=NaN){
+    return $media="0";
+  }else{
+	  $sumaNotas = array_sum($notas);
+	  $totalNotas = count($notas);
+	  $media = $sumaNotas/$totalNotas;
+	  return $media;
+  }
 }
 ?>
