@@ -14,22 +14,43 @@
    echo "</ol></div>";
  } 
 
- function matricularAlumno(){
+ function matricularAlumno($array){
    echo "<h3><pre>2.Matricular Alumnos</pre></h3>
-   <form class='formMatricula' action='index.php' method='GET'>
- 	 	<input type='text' name='nombre' placeholder='Introduce Nombre Alumno'>
- 	 	<input type='text' name='apellido' placeholder='Introduce Apellido Alumno'>
-  		<input type='submit' value='Enviar'/>
- 	</form>";
-   if($_GET['nombre'] == NULL || $_GET['apellido'] == NULL ){
- 			echo "<h3 style='color:red;'>Rellena los campos.</h3>";
- 		}else{echo "hola";}
- }
+   <form class='formMatricula' action='index.php' method='POST'>
+ 	 <input type='text' name='nombre' placeholder='Introduce Nombre Alumno'>
+ 	 <input type='text' name='apellido' placeholder='Introduce Apellido Alumno'>
+   <input type='submit' value='Enviar'/>
+ 	 </form>";
+   
+    if(isset($_POST['nombre'])){
+      for($i=0; $i<count($array); $i++){
+        if($array[$i]['nombre'] == $_POST['nombre'] && $array[$i]['apellido'] == $_POST['apellido']){
+          echo "El alumno ya existe";
+        }else{
+          if(!$i){
+            $alumno = [
+              'nombre' => $_POST['nombre'],
+              'apellido' => $_POST['apellido'],
+              'notas' => []
+            ];
+            $array = array_merge($array,$alumno);
+            echo $array;
+          }
+        }
+      }
+    }
+    
+  } 
  
- function simuladorExamen(){
+ function simuladorExamen($array){
    echo "<h3><pre>3.Simulador de Examen</pre></h3>
-   <div class='nomApe'><pre>Simulando...</pre></div>
-   <ol>";
+   <label><pre>Nivel Facil</pre>
+   <input name='facil' type='radio' value='facil' />
+   </label><label><pre>Nivel Medio</pre>
+   <input name='medio' type='radio' value='medio' />
+   </label><label><pre>Nivel Alto</pre>
+   <input name='alto' type='radio' value='alto' />
+   </label>";
  }
  
  function printAlumnosNotas($datos){
