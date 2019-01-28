@@ -13,6 +13,12 @@
   <nav class="cabecera">
     <?php
     include('funciones.php');
+  $usuarios = [
+    [
+      'nombre'=>'user',
+      'contraseña'=>'123'
+    ]
+  ];
     if(!isset($_SESSION['alumnos'])){
 		  $_SESSION['alumnos'] = [
         ['nombre'=> 'Eugenio', 'apellido' => 'Martínez', 'notas' => []],
@@ -22,17 +28,20 @@
       ];
     }
     //Si existe el usuario 'user' con pass '123' entra en el programa.
-    if(isset($_POST['usuario'])){
-      opciones();
+
+    if(isset($_SESSION['usuario'])){
+      imprimeBotones();
     }else{
       login();
-      print_r ($_SESSION['alumnos']);
     }
     echo "</nav></header>
       <main class='cuerpo'>";
   //Mediante un switch ejecuto las diferentes opciones.
     if(isset($_POST["menu"])){
       switch($_POST["menu"]){
+        case 'Enviar':
+          validar($usuarios);
+          break;
         case 'Alumnos':
           imprimirAlumnos($_SESSION['alumnos']);
           break;
@@ -55,23 +64,25 @@
 </body>
 </html>
 <?php
-function opciones(){
-  $_SESSION['user'] = $_POST['usuario'];
-  $_SESSION['pass'] = $_POST['contraseña'];
-  if($_POST['usuario']=='user' and $_POST['contraseña']=='123'){
-    imprimeBotones();
-  }else if(($_POST['usuario']!='user' and $_POST['contraseña']!='123') or $_POST['usuario']!='user' or $_POST['contraseña']!='123'){
-    echo '<div id="incompleto"><pre>Login Erroneo</pre></div>';
-    login();
+
+function validar($value){
+  if(isset($_POST['usuario'])){
+    if($_POST['usuario'] and $_POST['contraseña']){
+      if($_POST['usuario'] == $value[0]['nombre']and $_POST['contraseña'] == $value[0]['contraseña']){
+        $_SESSION['usuario']=[
+          'nombre'=>'user',
+          'contraseña'=>'123'
+        ];
+      }
+    }
   }
 }
-
 //función de formulario de login
 function login(){
   echo "<form class='login' action='index.php' method='POST'>
   <input type='text' name='usuario' placeholder='Introduce tu nombre'><br>
   <input type='password' name='contraseña' placeholder='introduce tu contraseña'><br>
-  <input type='submit' value='Enviar'>
+  <input type='submit' name='menu' value='Enviar'>
   </form>";
 }
 //Botones de selección;
@@ -93,4 +104,8 @@ function cerrarSesion(){
     }
   }
 }
+/*}else if(($_POST['usuario']!='user' and $_POST['contraseña']!='123') or $_POST['usuario']!='user' or $_POST['contraseña']!='123'){
+  echo '<div id="incompleto"><pre>Login Erroneo</pre></div>';
+  login();
+}*/
 ?>
