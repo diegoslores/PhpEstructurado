@@ -11,16 +11,16 @@
     <h2><pre>..::ACADEMIA SANCLEMENTE::..</pre></h2>
     <nav class="cabecera">
     <?php
-    include('funciones.php');    
-		     $_SESSION['alumnos'] = [
-          ['nombre'=> 'Eugenio', 'apellido' => 'Martínez', 'notas' => []],
-          ['nombre'=> 'Marta', 'apellido' => 'Carrera', 'notas' => [0]],
-          ['nombre'=> 'Nacho', 'apellido' => 'Herrera', 'notas' => []],
-          ['nombre'=> 'Anxo', 'apellido' => 'Iglesias', 'notas' => [0,5]]
-        ];
-       
+    include('funciones.php');
+		$_SESSION['alumnos'] = [
+      ['nombre'=> 'Eugenio', 'apellido' => 'Martínez', 'notas' => []],
+      ['nombre'=> 'Marta', 'apellido' => 'Carrera', 'notas' => [0]],
+      ['nombre'=> 'Nacho', 'apellido' => 'Herrera', 'notas' => []],
+      ['nombre'=> 'Anxo', 'apellido' => 'Iglesias', 'notas' => [0,5]]
+    ];
+
       //Si existe el usuario 'user' con pass '123' entra en el programa.
-      if(isset($_SESSION['usuario'])){
+      if(isset($_POST['user'])){
         opciones();
       }else{
         login();
@@ -52,8 +52,10 @@
 </body>
 </html>
 <?php
+
 function opciones(){
   if($_POST['usuario']=='user' and $_POST['contraseña']=='123'){
+    $_SESSION['user'] = $_POST['usuario'];
     imprimeBotones();
   }else if(($_POST['usuario']!='user' and $_POST['contraseña']!='123') or $_POST['usuario']!='user' or $_POST['contraseña']!='123'){
     echo '<div id="incompleto"><pre>Login Erroneo</pre></div>';
@@ -79,7 +81,7 @@ function imprimeBotones(){
       <input type='submit' name='menu' value='LogOut'>
     </form>";
     $_SESSION['usuario'] = $_POST['usuario'];
-} 
+}
 //función de cerrar sesiones.
 function cerrarSesion(){
   if(isset($_POST['menu'])){
