@@ -26,6 +26,7 @@
       opciones();
     }else{
       login();
+      print_r ($_SESSION['alumnos']);
     }
     echo "</nav></header>
       <main class='cuerpo'>";
@@ -55,9 +56,9 @@
 </html>
 <?php
 function opciones(){
+  $_SESSION['user'] = $_POST['usuario'];
+  $_SESSION['pass'] = $_POST['contraseña'];
   if($_POST['usuario']=='user' and $_POST['contraseña']=='123'){
-    $_SESSION['user'] = $_POST['usuario'];
-    $_SESSION['pass'] = $_POST['contraseña'];
     imprimeBotones();
   }else if(($_POST['usuario']!='user' and $_POST['contraseña']!='123') or $_POST['usuario']!='user' or $_POST['contraseña']!='123'){
     echo '<div id="incompleto"><pre>Login Erroneo</pre></div>';

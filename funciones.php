@@ -1,9 +1,9 @@
 <?php
 /*
- * Para no hacer los archivos demasiado largos en líneas, aquí en 'funciones.php' van todas 
+ * Para no hacer los archivos demasiado largos en líneas, aquí en 'funciones.php' van todas
  * las funciones que se llaman al pulsar los botones excepto la de cerrar sesion.
- */ 
- 
+ */
+
  function imprimirAlumnos($datos){
    echo "<h3><pre>1.Listado de Alumnos</pre></h3>
    <div class='nomApe'><pre><span>Nombre  \t Apellido</pre></span></div>
@@ -12,7 +12,7 @@
      echo "<li><pre>".$alumno['nombre']."\t\t".$alumno['apellido']."</pre></li>";
    };
    echo "</ol></div>";
- } 
+ }
 
  function matricularAlumno($array){
    echo "<h3><pre>2.Matricular Alumnos</pre></h3>
@@ -21,27 +21,26 @@
  	 <input type='text' name='apellido' placeholder='Introduce Apellido Alumno'>
    <input type='submit' value='Enviar'/>
  	 </form>";
-   
+
     if(isset($_POST['nombre'])){
       for($i=0; $i<count($array); $i++){
         if($array[$i]['nombre'] == $_POST['nombre'] && $array[$i]['apellido'] == $_POST['apellido']){
           echo "El alumno ya existe";
         }else{
           if(!$i){
-            $alumno = [
+            $array[] = [
               'nombre' => $_POST['nombre'],
               'apellido' => $_POST['apellido'],
               'notas' => []
             ];
-            $array = array_merge($array,$alumno);
-            echo $array;
+            return $array;
           }
         }
       }
     }
-    
-  } 
- 
+    print_r($array);
+  }
+
  function simuladorExamen($array){
    echo "<h3><pre>3.Simulador de Examen</pre></h3>
    <label><pre>Nivel Facil</pre>
@@ -52,7 +51,7 @@
    <input name='alto' type='radio' value='alto' />
    </label>";
  }
- 
+
  function printAlumnosNotas($datos){
    echo "<h3><pre>4.Listado de Alumnos y Notas</pre></h3>
    <div class='nomApeNota'><pre><span>Nombre  \t Apellido\tMedia\tNotas</span></pre></div>
@@ -64,19 +63,19 @@
        echo "- ";
      }else{
        echo notaMedia($alumno["notas"])."\t";
-     }    
-   	foreach($alumno['notas'] as $nota){             
-       echo "$nota | ";         
+     }
+   	foreach($alumno['notas'] as $nota){
+       echo "$nota | ";
      }
      	echo "<br /><br />";
    }
      echo "</ol></div>";
  }
  //función calcular notas medias almacenadas en un array.
- function notaMedia($notas){  
+ function notaMedia($notas){
  	$sumaNotas = array_sum($notas);
  	$totalNotas = count($notas);
  	$media = $sumaNotas/$totalNotas;
- 	return $media;  
- } 
+ 	return $media;
+ }
 ?>
