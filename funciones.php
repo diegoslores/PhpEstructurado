@@ -16,56 +16,22 @@
 
  function formMatricularAlumno(){
    echo "<h3><pre>2.Matricular Alumnos</pre></h3>
-   <form class='formMatricula' action='index.php' method='POST'>
- 	 <input type='text' name='name' placeholder='Introduce Nombre Alumno'>
- 	 <input type='text' name='lastname' placeholder='Introduce Apellido Alumno'>
-   <input type='submit' name='menu' value='Añadir'/>
+   <form class='formMatricula' action='index.php' method='GET'>
+ 	 <input type='text' name='nombre' placeholder='Introduce Nombre Alumno'>
+ 	 <input type='text' name='apellido' placeholder='Introduce Apellido Alumno'>
+   <input type='hidden' name='accion' value='registroDatos'>
+   <input type='submit' name='accion' value='Añadir'/>
  	 </form>";
-  }
+ }
 
- function matricularAlumno($array){
-     if($_POST['name'] == NULL || $_POST['lastname'] == NULL ){
- 	     formMatricularAlumno();
-       echo "<h4 style='color:red; margin-left: 3em;'>Rellena los campos.</h4>";
-     }else{
- 	     for($i=0; $i<count($_SESSION['alumnos']); $i++){
- 		      if($array[$i]['nombre']==$_POST['name'] && $array[$i]['apellido'] == $_POST['lastname']){
- 			        $array[$i]["notas"][] = $_POST["nota"];
- 			        formMatricularAlumno();
- 		      }else{
- 			      if(!$i){
- 				       $array[] = [
- 					      'nombre' => $_POST['name'],
- 					      'apellido' => $_POST['lastname'],
- 					      'notas' => [$_POST['nota']]
- 				       ];
- 			      }
- 	        }
-        }
+ function procesarDatosMatricula(){
+   /*echo "entra en esta funcion?";
+   if($_POST['menu'] == "Añadir"){
+      if($_POST['nombre'] != NULL and $_POST['apellido'] != NULL ){
+          $_SESSION['alumnos'] = ['nombre' => $_POST['nombre'], 'apellido' => $_POST['apellido']];
       }
-
-  }
-
-  /*function añadirAlumnoBD($array){
-    echo "askldjfflkdj";
-    print_r($array);
-    if(isset($_POST['nombre'])){
-      for($i=0; $i<count($array); $i++){
-        if($array[$i]['nombre'] == $_POST['nombre'] && $array[$i]['apellido'] == $_POST['apellido']){
-          echo "El alumno ya existe";
-        }else{
-          if(!$i){
-            $array[] = [
-              'nombre' => $_POST['nombre'],
-              'apellido' => $_POST['apellido']
-            ];
-            return $array;
-          }
-        }
-      }print_r($array);
-    }
-    print_r($array);
-  }*/
+    }*/
+ }
 
  function simuladorExamen($array){
    echo "<h3><pre>3.Simulador de Examen</pre></h3>

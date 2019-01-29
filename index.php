@@ -46,15 +46,16 @@
           imprimirAlumnos($_SESSION['alumnos']);
           break;
         case 'Matricular':
-            switch ($_POST["menu"]) {
-              case 'Añadir':
-                echo "Añadido";
-                break;
-              default:
-                formMatricularAlumno();
-                echo "default funciona";
-                break;
-            }
+          formMatricularAlumno();
+          break;
+        case 'registroDatos':
+          echo '<h1>jhghj</h1>';
+          if($_GET['menu'] == "registroDatos"){
+             if($_GET['nombre'] != NULL and $_GET['apellido'] != NULL ){
+                 $_SESSION['alumnos'][] = ['nombre' => $_GET['nombre'], 'apellido' => $_GET['apellido']];
+             }
+          }
+          print_r($_SESSION['alumnos']);
           break;
         case 'Examen':
           simuladorExamen($_SESSION['alumnos']);
