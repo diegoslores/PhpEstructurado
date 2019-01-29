@@ -19,18 +19,20 @@
    <form class='formMatricula' action='index.php' method='GET'>
  	 <input type='text' name='nombre' placeholder='Introduce Nombre Alumno'>
  	 <input type='text' name='apellido' placeholder='Introduce Apellido Alumno'>
-   <input type='hidden' name='accion' value='registroDatos'>
-   <input type='submit' name='accion' value='Añadir'/>
+   <input type='submit' name='menu' value='Añadir'/>
  	 </form>";
  }
 
- function procesarDatosMatricula(){
-   /*echo "entra en esta funcion?";
+ function procesarDatosMatricula($array){
    if($_POST['menu'] == "Añadir"){
-      if($_POST['nombre'] != NULL and $_POST['apellido'] != NULL ){
-          $_SESSION['alumnos'] = ['nombre' => $_POST['nombre'], 'apellido' => $_POST['apellido']];
-      }
-    }*/
+      //if($_POST['nombre'] != NULL and $_POST['apellido'] != NULL ){
+          $array[] = [
+            'nombre' => $_POST['nombre'],
+            'apellido' => $_POST['apellido']
+          ];
+          return $array;
+    //  }
+    }
  }
 
  function simuladorExamen($array){

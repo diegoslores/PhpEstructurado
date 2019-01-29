@@ -36,6 +36,7 @@
     }
     echo "</nav></header>
       <main class='cuerpo'>";
+      $alumnos = $_SESSION['alumnos'];
   //Mediante un switch ejecuto las diferentes opciones.
     if(isset($_POST["menu"])){
       switch($_POST["menu"]){
@@ -47,14 +48,11 @@
           break;
         case 'Matricular':
           formMatricularAlumno();
+          $_SESSION['alumnos'] = procesarDatosMatricula($alumnos);
           break;
-        case 'registroDatos':
+        case 'Añadir':
           echo '<h1>jhghj</h1>';
-          if($_GET['menu'] == "registroDatos"){
-             if($_GET['nombre'] != NULL and $_GET['apellido'] != NULL ){
-                 $_SESSION['alumnos'][] = ['nombre' => $_GET['nombre'], 'apellido' => $_GET['apellido']];
-             }
-          }
+          $_SESSION['alumnos'] = procesarDatosMatricula($alumnos);
           print_r($_SESSION['alumnos']);
           break;
         case 'Examen':
