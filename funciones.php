@@ -14,15 +14,42 @@
    echo "</ol></div>";
  }
 
- function matricularAlumno($array){
+ function formMatricularAlumno(){
    echo "<h3><pre>2.Matricular Alumnos</pre></h3>
    <form class='formMatricula' action='index.php' method='POST'>
- 	 <input type='text' name='nombre' placeholder='Introduce Nombre Alumno'>
- 	 <input type='text' name='apellido' placeholder='Introduce Apellido Alumno'>
-   <input type='submit' name='matricula' value='Enviar'/>
+ 	 <input type='text' name='name' placeholder='Introduce Nombre Alumno'>
+ 	 <input type='text' name='lastname' placeholder='Introduce Apellido Alumno'>
+   <input type='submit' name='menu' value='Añadir'/>
  	 </form>";
+  }
 
-    if(isset($_POST['matricula'])){
+ function matricularAlumno($array){
+     if($_POST['name'] == NULL || $_POST['lastname'] == NULL ){
+ 	     formMatricularAlumno();
+       echo "<h4 style='color:red; margin-left: 3em;'>Rellena los campos.</h4>";
+     }else{
+ 	     for($i=0; $i<count($_SESSION['alumnos']); $i++){
+ 		      if($array[$i]['nombre']==$_POST['name'] && $array[$i]['apellido'] == $_POST['lastname']){
+ 			        $array[$i]["notas"][] = $_POST["nota"];
+ 			        formMatricularAlumno();
+ 		      }else{
+ 			      if(!$i){
+ 				       $array[] = [
+ 					      'nombre' => $_POST['name'],
+ 					      'apellido' => $_POST['lastname'],
+ 					      'notas' => [$_POST['nota']]
+ 				       ];
+ 			      }
+ 	        }
+        }
+      }
+
+  }
+
+  /*function añadirAlumnoBD($array){
+    echo "askldjfflkdj";
+    print_r($array);
+    if(isset($_POST['nombre'])){
       for($i=0; $i<count($array); $i++){
         if($array[$i]['nombre'] == $_POST['nombre'] && $array[$i]['apellido'] == $_POST['apellido']){
           echo "El alumno ya existe";
@@ -35,10 +62,10 @@
             return $array;
           }
         }
-      }
+      }print_r($array);
     }
     print_r($array);
-  }
+  }*/
 
  function simuladorExamen($array){
    echo "<h3><pre>3.Simulador de Examen</pre></h3>
@@ -58,11 +85,13 @@
    <ol><pre>";
    foreach ($datos as $alumno) {
      echo $alumno['nombre']."\t\t\t". $alumno['apellido']." \t";
+     //si no existe nota asociada al alumno en lugar de calcular la media pone una raya.
      if($alumno['notas'] == NULL){
        echo "- ";
      }else{
        echo notaMedia($alumno["notas"])."\t";
      }
+    //imprime las notas separadas por una barra vertical.
    	foreach($alumno['notas'] as $nota){
        echo "$nota | ";
      }

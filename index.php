@@ -45,8 +45,16 @@
         case 'Alumnos':
           imprimirAlumnos($_SESSION['alumnos']);
           break;
-        case 'Matricula':
-          matricularAlumno($_SESSION['alumnos']);
+        case 'Matricular':
+            switch ($_POST["menu"]) {
+              case 'Añadir':
+                echo "Añadido";
+                break;
+              default:
+                formMatricularAlumno();
+                echo "default funciona";
+                break;
+            }
           break;
         case 'Examen':
           simuladorExamen($_SESSION['alumnos']);
@@ -89,7 +97,7 @@ function login(){
 function imprimeBotones(){
   echo "<form action='index.php' method='POST'>
       <input type='submit' name='menu' value='Alumnos'>
-      <input type='submit' name='menu' value='Matricula'>
+      <input type='submit' name='menu' value='Matricular'>
       <input type='submit' name='menu' value='Examen'>
       <input type='submit' name='menu' value='Notas'>
       <input type='submit' name='menu' value='LogOut'>
