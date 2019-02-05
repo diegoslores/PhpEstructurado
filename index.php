@@ -80,6 +80,8 @@ function validar($value){
           'nombre'=>'user',
           'contraseña'=>'123'
         ];
+        header('Location: index.php');
+        exit();
       }
     }
   }
