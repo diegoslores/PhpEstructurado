@@ -1,4 +1,4 @@
-<?php session_start(); ?>
+<?php  session_start(); ?>
 <html>
 <head>
   <meta charset="UTF-8" />
@@ -13,12 +13,13 @@
   <nav class="cabecera">
     <?php
     include('funciones.php');
-  $usuarios = [
-    [
-      'nombre'=>'user',
-      'contraseña'=>'123'
-    ]
-  ];
+    $usuarios = [
+      [
+        'username'=>'user',
+        'password'=>'123'
+      ]
+    ];
+
     if(!isset($_SESSION['alumnos'])){
 		  $_SESSION['alumnos'] = [
         ['nombre'=> 'Eugenio', 'apellido' => 'Martínez', 'notas' => []],
@@ -27,22 +28,14 @@
         ['nombre'=> 'Anxo', 'apellido' => 'Iglesias', 'notas' => [0,5]]
       ];
     }
-    //Si existe el usuario 'user' con pass '123' entra en el programa.
-
-    if(isset($_SESSION['usuario'])){
+    if (isset($_POST['login'])) {
+      validar($usuarios);
+    }else  if(isset($_POST["menu"])){
       imprimeBotones();
-    }else{
-      login();
-    }
-    echo "</nav></header>
+      echo "</nav></header>
       <main class='cuerpo'>";
       $alumnos = $_SESSION['alumnos'];
-  //Mediante un switch ejecuto las diferentes opciones.
-    if(isset($_POST["menu"])){
       switch($_POST["menu"]){
-        case 'Enviar':
-          validar($usuarios);
-          break;
         case 'Alumnos':
           imprimirAlumnos($_SESSION['alumnos']);
           break;
@@ -50,7 +43,7 @@
           formMatricularAlumno();
           $_SESSION['alumnos'] = procesarDatosMatricula($alumnos);
           break;
-        case 'Añadir':
+        case 'Add':
           echo '<h1>jhghj</h1>';
           $_SESSION['alumnos'] = procesarDatosMatricula($alumnos);
           print_r($_SESSION['alumnos']);
@@ -65,6 +58,8 @@
           cerrarSesion();
           break;
       }
+    }else {
+        login();
     }
     ?>
   </main>
@@ -73,25 +68,26 @@
 <?php
 
 function validar($value){
-  if(isset($_POST['usuario'])){
-    if($_POST['usuario'] and $_POST['contraseña']){
-      if($_POST['usuario'] == $value[0]['nombre']and $_POST['contraseña'] == $value[0]['contraseña']){
+  if(!isset($_POST['usuario'])){
+      if($_POST['username'] and $_POST['password'] and $_POST['username'] == $value[0]['username']and $_POST['password'] == $value[0]['password']){
         $_SESSION['usuario']=[
-          'nombre'=>'user',
-          'contraseña'=>'123'
+          'username'=>'user',
+          'password'=>'123'
         ];
-        header('Location: index.php');
-        exit();
-      }
-    }
+        imprimeBotones();
+      }else{
+        login();
+    }    
+  }else{
+     login();
   }
 }
 //función de formulario de login
 function login(){
   echo "<form class='login' action='index.php' method='POST'>
-  <input type='text' name='usuario' placeholder='Introduce tu nombre'><br>
-  <input type='password' name='contraseña' placeholder='introduce tu contraseña'><br>
-  <input type='submit' name='menu' value='Enviar'>
+  <input type='text' name='username' placeholder='Introduce tu nombre'><br>
+  <input type='password' name='password' placeholder='introduce tu contraseña'><br>
+  <input type='submit' name='login' value='Enviar'>
   </form>";
 }
 //Botones de selección;
