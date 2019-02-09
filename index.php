@@ -23,9 +23,9 @@
     if(!isset($_SESSION['alumnos'])){
 		  $_SESSION['alumnos'] = [
         ['nombre'=> 'Eugenio', 'apellido' => 'Martínez', 'notas' => []],
-        ['nombre'=> 'Marta', 'apellido' => 'Carrera', 'notas' => [0]],
+        ['nombre'=> 'Marta', 'apellido' => 'Carrera', 'notas' => []],
         ['nombre'=> 'Nacho', 'apellido' => 'Herrera', 'notas' => []],
-        ['nombre'=> 'Anxo', 'apellido' => 'Iglesias', 'notas' => [0,5]]
+        ['nombre'=> 'Anxo', 'apellido' => 'Iglesias', 'notas' => []]
       ];
     }
     init($usuarios);
@@ -76,15 +76,19 @@ function cerrarSesion(){
     }
   }
 }
+function headerInit(){
+  imprimeBotones();
+  $alumnos = $_SESSION['alumnos'];
+  echo "</nav></header>
+  <main class='cuerpo'>";
+  return $alumnos;
+}
 
 function init($usuarios){
   if (isset($_POST['login'])) {
     validar($usuarios);
   }else  if(isset($_POST["menu"])){
-    imprimeBotones();
-    echo "</nav></header>
-    <main class='cuerpo'>";
-    $alumnos = $_SESSION['alumnos'];
+    $alumnos = headerInit();
     switch($_POST["menu"]){
       case 'Alumnos':
         imprimirAlumnos($_SESSION['alumnos']);
@@ -93,7 +97,7 @@ function init($usuarios){
         formMatricularAlumno();
         break;
       case 'Examen':
-        simuladorExamen($_SESSION['alumnos']);
+        simuladorExamen();
         break;
       case 'Notas':
         printAlumnosNotas($_SESSION['alumnos']);
@@ -102,18 +106,20 @@ function init($usuarios){
         cerrarSesion();
         break;
     }
-  }else  if(isset($_POST["AddAlumn"])){
-    imprimeBotones();
-    $alumnos = $_SESSION['alumnos'];
-    echo "</nav></header>
-    <main class='cuerpo'>";
+  }else  if(isset($_POST["addAlumn"])){
+    $alumnos = headerInit();
     $_SESSION['alumnos'] = procesarDatosMatricula($alumnos);
     imprimirAlumnos($_SESSION['alumnos']);
         
+  }else  if(isset($_POST["generateExam"])){
+    $alumnos = headerInit();
+    $_SESSION['alumnos'] = addScore($alumnos); 
+    printAlumnosNotas($_SESSION['alumnos']);       
   }else {
       login();
   }
 }
+
 /*}else if(($_POST['usuario']!='user' and $_POST['contraseña']!='123') or $_POST['usuario']!='user' or $_POST['contraseña']!='123'){
   echo '<div id="incompleto"><pre>Login Erroneo</pre></div>';
   login();
