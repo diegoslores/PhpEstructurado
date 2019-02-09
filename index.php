@@ -28,45 +28,12 @@
         ['nombre'=> 'Anxo', 'apellido' => 'Iglesias', 'notas' => [0,5]]
       ];
     }
-    if (isset($_POST['login'])) {
-      validar($usuarios);
-    }else  if(isset($_POST["menu"])){
-      imprimeBotones();
-      echo "</nav></header>
-      <main class='cuerpo'>";
-      $alumnos = $_SESSION['alumnos'];
-      switch($_POST["menu"]){
-        case 'Alumnos':
-          imprimirAlumnos($_SESSION['alumnos']);
-          break;
-        case 'Matricular':
-          formMatricularAlumno();
-          $_SESSION['alumnos'] = procesarDatosMatricula($alumnos);
-          break;
-        case 'Add':
-          echo '<h1>jhghj</h1>';
-          $_SESSION['alumnos'] = procesarDatosMatricula($alumnos);
-          print_r($_SESSION['alumnos']);
-          break;
-        case 'Examen':
-          simuladorExamen($_SESSION['alumnos']);
-          break;
-        case 'Notas':
-          printAlumnosNotas($_SESSION['alumnos']);
-          break;
-        case 'LogOut':
-          cerrarSesion();
-          break;
-      }
-    }else {
-        login();
-    }
+    init($usuarios);
     ?>
   </main>
 </body>
 </html>
 <?php
-
 function validar($value){
   if(!isset($_POST['usuario'])){
       if($_POST['username'] and $_POST['password'] and $_POST['username'] == $value[0]['username']and $_POST['password'] == $value[0]['password']){
@@ -107,6 +74,44 @@ function cerrarSesion(){
       session_destroy();
       echo '<script>location.href="index.php"</script>';
     }
+  }
+}
+
+function init($usuarios){
+  if (isset($_POST['login'])) {
+    validar($usuarios);
+  }else  if(isset($_POST["menu"])){
+    imprimeBotones();
+    echo "</nav></header>
+    <main class='cuerpo'>";
+    $alumnos = $_SESSION['alumnos'];
+    switch($_POST["menu"]){
+      case 'Alumnos':
+        imprimirAlumnos($_SESSION['alumnos']);
+        break;
+      case 'Matricular':
+        formMatricularAlumno();
+        break;
+      case 'Examen':
+        simuladorExamen($_SESSION['alumnos']);
+        break;
+      case 'Notas':
+        printAlumnosNotas($_SESSION['alumnos']);
+        break;
+      case 'LogOut':
+        cerrarSesion();
+        break;
+    }
+  }else  if(isset($_POST["AddAlumn"])){
+    imprimeBotones();
+    $alumnos = $_SESSION['alumnos'];
+    echo "</nav></header>
+    <main class='cuerpo'>";
+    $_SESSION['alumnos'] = procesarDatosMatricula($alumnos);
+    imprimirAlumnos($_SESSION['alumnos']);
+        
+  }else {
+      login();
   }
 }
 /*}else if(($_POST['usuario']!='user' and $_POST['contraseña']!='123') or $_POST['usuario']!='user' or $_POST['contraseña']!='123'){

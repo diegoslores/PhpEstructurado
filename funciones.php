@@ -16,34 +16,37 @@
 
  function formMatricularAlumno(){
    echo "<h3><pre>2.Matricular Alumnos</pre></h3>
-   <form class='formMatricula' action='index.php' method='GET'>
- 	 <input type='text' name='nombre' placeholder='Introduce Nombre Alumno'>
- 	 <input type='text' name='apellido' placeholder='Introduce Apellido Alumno'>
-   <input type='submit' name='menu' value='Añadir'/>
+   <form class='formMatricula' action='index.php' method='POST'>
+ 	 <input type='text' name='name' placeholder='Introduce Nombre Alumno'>
+ 	 <input type='text' name='surname' placeholder='Introduce Apellido Alumno'>
+   <input type='submit' name='AddAlumn' value='Añadir'/>
  	 </form>";
  }
 
  function procesarDatosMatricula($array){
-   if($_POST['menu'] == "Añadir"){
-      //if($_POST['nombre'] != NULL and $_POST['apellido'] != NULL ){
+   if(isset($_POST['AddAlumn'])){
+      if(!empty($_POST['name']) and !empty($_POST['surname'])){
           $array[] = [
-            'nombre' => $_POST['nombre'],
-            'apellido' => $_POST['apellido']
+            'nombre' => $_POST['name'],
+            'apellido' => $_POST['surname']
           ];
-          return $array;
-    //  }
+      }
     }
+    return $array;
  }
 
  function simuladorExamen($array){
    echo "<h3><pre>3.Simulador de Examen</pre></h3>
+   <form class='formExam' action='index.php' method='POST'>
    <label><pre>Nivel Facil</pre>
-   <input name='facil' type='radio' value='facil' />
+   <input name='exam' type='radio' value='facil' />
    </label><label><pre>Nivel Medio</pre>
-   <input name='medio' type='radio' value='medio' />
+   <input name='exam' type='radio' value='medio' />
    </label><label><pre>Nivel Alto</pre>
-   <input name='alto' type='radio' value='alto' />
-   </label>";
+   <input name='exam' type='radio' value='alto' />
+   </label>
+   <input type='submit' name='generateExam' value='Generar Nota'/>
+   </form>";
  }
 
  function printAlumnosNotas($datos){
