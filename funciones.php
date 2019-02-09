@@ -78,31 +78,26 @@
  }
 
  function printAlumnosNotas($datos){
-   echo "<h3><pre>4.Listado de Alumnos y Notas</pre></h3>
-   <div class='nomApeNota'><pre><span>Nombre  \t\t Apellido\tMedia\tNotas</span></pre></div>
-   <table border=1>
-   <ol><pre>";
-   foreach ($datos as $alumno) {
-     echo $alumno['nombre']."\t\t\t". $alumno['apellido']." \t";
-     //si no existe nota asociada al alumno en lugar de calcular la media pone una raya.
-     if($alumno['notas'] == NULL){
-       echo "- ";
-     }else{
-       echo notaMedia($alumno["notas"])."\t";
-     }
-    //imprime las notas separadas por una barra vertical.
-   	foreach($alumno['notas'] as $nota){
-       echo "$nota | ";
-     }
-     	echo "<br /><br />";
-   }
-     echo "</ol></div>";
- }
- //función calcular notas medias almacenadas en un array.
- function notaMedia($notas){
- 	$sumaNotas = array_sum($notas);
- 	$totalNotas = count($notas);
- 	$media = round($sumaNotas/$totalNotas,2);
- 	return $media;
- }
+  echo "<h3><pre>4.Listado de Alumnos y Notas</pre></h3>
+  <table id='tablaexamenes'>
+    <tbody><tr> <th>Nombre</th><th>Apellido</th>";
+    for ($i = 1; $i <= count($datos[0]["notas"]); $i++) {
+      echo "<th> Nota".$i."</th>";
+    }
+    echo "<th> Nota Media </th></tr>";
+    foreach($datos as $alumn){
+      echo "<tr> <td> ".$alumn["nombre"]." </td><td> ".$alumn["apellido"]." </td> ";
+      foreach($alumn["notas"] as $nota){
+        echo "<td> ".$nota."</td>";
+      }
+      echo "<td>".notaMedia($alumn["notas"])."</td></tr>";
+    }
+      echo "</tbody></table>";
+  }
+  function notaMedia($notas){
+    $sumaNotas = array_sum($notas);
+    $totalNotas = count($notas);
+    $media = round($sumaNotas/$totalNotas,2);
+    return $media;
+  }
 ?>

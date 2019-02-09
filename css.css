@@ -1,10 +1,10 @@
-header{
+header {
   border: solid 2px;
   margin: 5px;
   text-align: center;
   background-color: darkblue;
 }
-h2{
+h2 {
   color: white;
 }
 /*nav*/
@@ -19,17 +19,17 @@ h2{
 form {
   margin-bottom: 0;
 }
-.login input{
+.login input {
   margin: 1em;
   padding: 5px;
   width: 200px;
 }
-#incompleto{
+#incompleto {
   margin: 1px auto;
   max-width: 200px;
-  color:red;
-  border:solid;
-  }
+  color: red;
+  border: solid;
+}
 /*Botones*/
 input {
   margin: 0.5em;
@@ -58,7 +58,7 @@ ol {
   list-style: none;
   list-style-position: center;
 }
-span{
+span {
   margin-left: 1em;
 }
 /*Apartado 1*/
@@ -68,20 +68,20 @@ span{
   width: 320px;
 }
 /*Apartado2*/
-.formMatricula{
+.formMatricula {
   margin-left: 2em;
 }
-.formMatricula input{
+.formMatricula input {
   margin: 0.5em;
   padding: 5px;
   width: 200px;
   border-radius: 12px;
 }
 /*Apartado 3*/
-label pre{
+label pre {
   margin-left: 2em;
 }
-label input{
+label input {
   margin-top: 0;
 }
 /*Apartado 4*/
@@ -89,4 +89,9 @@ label input{
   margin-left: 2.5em;
   border-bottom: solid 2px;
   width: 500px;
+}
+#tablaexamenes {
+  width: 100%;
+  border: 3px solid red;
+  text-align: center;
 }
