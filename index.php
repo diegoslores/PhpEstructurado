@@ -91,6 +91,7 @@ function init($usuarios){
     $alumnos = headerInit();
     switch($_POST["menu"]){
       case 'Alumnos':
+      echo "<h3><pre>1.Listado de Alumnos</pre></h3>";
         imprimirAlumnos($_SESSION['alumnos']);
         break;
       case 'Matricular':
@@ -100,6 +101,7 @@ function init($usuarios){
         simuladorExamen();
         break;
       case 'Notas':
+      echo "<h3><pre>4.Listado de Alumnos y Notas</pre></h3>";
         printAlumnosNotas($_SESSION['alumnos']);
         break;
       case 'LogOut':
@@ -109,12 +111,17 @@ function init($usuarios){
   }else  if(isset($_POST["addAlumn"])){
     $alumnos = headerInit();
     $_SESSION['alumnos'] = procesarDatosMatricula($alumnos);
+    formMatricularAlumno();
     imprimirAlumnos($_SESSION['alumnos']);
         
   }else  if(isset($_POST["generateExam"])){
     $alumnos = headerInit();
-    $_SESSION['alumnos'] = addScore($alumnos); 
-    printAlumnosNotas($_SESSION['alumnos']);       
+    $_SESSION['alumnos'] = addScore($alumnos);
+    echo "<div class='generator'>";
+    simuladorExamen();
+    echo "<div class='tableGenerator'>"; 
+    printAlumnosNotas($_SESSION['alumnos']);
+    echo "</div></div>";       
   }else {
       login();
   }

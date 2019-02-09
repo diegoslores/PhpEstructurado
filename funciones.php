@@ -5,14 +5,14 @@
  */
 
  function imprimirAlumnos($datos){
-   echo "<h3><pre>1.Listado de Alumnos</pre></h3>
-   <div class='nomApe'><pre><span>Nombre  \t\t Apellido</pre></span></div>
-   <div class='lista'><ol>";
-   foreach($datos as $alumno){
-     echo "<li><pre>".$alumno['nombre']."\t\t\t".$alumno['apellido']."</pre></li>";
-   };
-   echo "</ol></div>";
- }
+  echo "<table id='tableAlumnos'>
+    <tbody><tr> <th>Nombre</th><th>Apellido</th>";  
+    foreach($datos as $alumn){
+      echo "<tr> <td> ".$alumn["nombre"]." </td><td> ".$alumn["apellido"]." </td> ";     
+    }
+    echo "</tbody></table>";
+  }
+   
 
  function formMatricularAlumno(){
    echo "<h3><pre>2.Matricular Alumnos</pre></h3>
@@ -39,14 +39,18 @@
  function simuladorExamen(){
    echo "<h3><pre>3.Simulador de Examen</pre></h3>
    <form class='formExam' action='index.php' method='POST'>
-   <label><pre>Nivel Facil</pre>
+   <label><span>Nivel Facil</span>
    <input name='exam' type='radio' value='1' checked/>
-   </label><label><pre>Nivel Medio</pre>
+   </label>
+   <label><span>Nivel Medio</span>
    <input name='exam' type='radio' value='2' />
-   </label><label><pre>Nivel Alto</pre>
+   </label>
+   <label><span>Nivel Alto</span>
    <input name='exam' type='radio' value='3' />
    </label>
+   <label><br/>
    <input type='submit' name='generateExam' value='Generar Nota'/>
+   </label>
    </form>";
  }
  function rand_float($st_num,$end_num,$mul){
@@ -78,8 +82,7 @@
  }
 
  function printAlumnosNotas($datos){
-  echo "<h3><pre>4.Listado de Alumnos y Notas</pre></h3>
-  <table id='tablaexamenes'>
+  echo "<table id='tablaexamenes'>
     <tbody><tr> <th>Nombre</th><th>Apellido</th>";
     for ($i = 1; $i <= count($datos[0]["notas"]); $i++) {
       echo "<th> Nota".$i."</th>";
@@ -89,8 +92,11 @@
       echo "<tr> <td> ".$alumn["nombre"]." </td><td> ".$alumn["apellido"]." </td> ";
       foreach($alumn["notas"] as $nota){
         echo "<td> ".$nota."</td>";
-      }
-      echo "<td>".notaMedia($alumn["notas"])."</td></tr>";
+      }if($alumn['notas'] == NULL){        
+        echo "<td> - </td></tr>";        
+      }else{
+        echo "<td>".notaMedia($alumn["notas"])."</td></tr>";
+      } 
     }
       echo "</tbody></table>";
   }

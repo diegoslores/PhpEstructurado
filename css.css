@@ -1,3 +1,6 @@
+body {
+  font-family: "Courier New", Courier, monospace;
+}
 header {
   border: solid 2px;
   margin: 5px;
@@ -9,7 +12,7 @@ h2 {
 }
 /*nav*/
 .cabecera {
-  border: solid 2px;
+  border: solid 1px;
   margin: 5px;
   padding: 5px;
   min-height: 150px;
@@ -31,7 +34,7 @@ form {
   border: solid;
 }
 /*Botones*/
-input {
+header input {
   margin: 0.5em;
   margin-top: 50px;
   padding: 10px;
@@ -58,16 +61,8 @@ ol {
   list-style: none;
   list-style-position: center;
 }
-span {
-  margin-left: 1em;
-}
-/*Apartado 1*/
-.nomApe {
-  margin-left: 2.5em;
-  border-bottom: solid 2px;
-  width: 320px;
-}
-/*Apartado2*/
+
+/*Matricula Form*/
 .formMatricula {
   margin-left: 2em;
 }
@@ -77,21 +72,45 @@ span {
   width: 200px;
   border-radius: 12px;
 }
-/*Apartado 3*/
-label pre {
-  margin-left: 2em;
+/*Generardor Examen Form*/
+.tableGenerator {
+  width: 75%;
+  float: left;
+  margin-left: 5%;
 }
-label input {
-  margin-top: 0;
+.formExam {
+  float: left;
+  background-color: lightblue;
+  width: 15%;
+  height: 50%;
+  margin: 5px;
+  padding-top: 1em;
+  border: solid 1px black;
 }
-/*Apartado 4*/
-.nomApeNota {
-  margin-left: 2.5em;
-  border-bottom: solid 2px;
-  width: 500px;
+span {
+  margin-left: 1em;
 }
-#tablaexamenes {
-  width: 100%;
-  border: 3px solid red;
+.formexam input {
+  margin: 0.5em;
+  padding: 10px;
+  width: 80%;
+  margin-left: 10%;
+  border-radius: 12px;
+}
+/*Tablas*/
+#tablaexamenes,
+#tableAlumnos {
+  width: 90%;
   text-align: center;
+  margin: auto;
+  margin-bottom: 1em;
+  color: white;
+}
+#tablaexamenes td,
+#tablaexamenes th,
+#tableAlumnos td,
+#tableAlumnos th {
+  border-bottom: 1px solid gainsboro;
+  color: white;
+  padding: 0.5em;
 }
