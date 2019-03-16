@@ -94,20 +94,24 @@
   echo "<table id='tablaexamenes'>
     <tbody><tr> <th>Nombre</th><th>Apellido</th>";
     //Con este for se imprime el número de nota que se va a representar debajo, nota1, nota2 ....
+    echo "<th> Nota Media </th>";
     for ($i = 1; $i <= count($datos[0]["notas"]); $i++) {
       echo "<th> Nota".$i."</th>";
     }
-    echo "<th> Nota Media </th></tr>";
+    echo "</tr>";
     //En este bucle se empieza a recorrer el array de alumnos y a imprimir cada dato, nombre, apellido, cada nota que tenga y la media final. Cada uno debajo de su cabecera.
     foreach($datos as $alumn){
       echo "<tr> <td> ".$alumn["nombre"]." </td><td> ".$alumn["apellido"]." </td> ";
+      
+      if($alumn['notas'] == NULL){        
+        echo "<td> - </td>";        
+      }else{
+        echo "<td>".notaMedia($alumn["notas"])."</td>";
+      } 
       foreach($alumn["notas"] as $nota){
         echo "<td> ".$nota."</td>";
-      }if($alumn['notas'] == NULL){        
-        echo "<td> - </td></tr>";        
-      }else{
-        echo "<td>".notaMedia($alumn["notas"])."</td></tr>";
-      } 
+      }
+      echo"</tr>";
     }
       echo "</tbody></table>";
   }
